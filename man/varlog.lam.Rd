@@ -1,0 +1,52 @@
+\name{varlog.lam}
+\alias{varlog.lam}
+%- Also NEED an '\alias' for EACH other topic documented here.
+\title{
+Calculates the variance of the log rate of change between 2 population estimates that rely on the same sightability model.
+}
+\description{
+Calculates the variance of the log rate of change between 2 population estimates that rely on the same sightability model.  
+}
+\usage{
+varlog.lam(sight1, sight2)
+}
+%- maybe also 'usage' for other objects documented here.
+\arguments{
+  \item{sight1}{ Sightability model object for the first population estimate (formed by calling Sight.Est function) 
+}
+  \item{sight2}{ Sightability model object for the second population estimate (formed by calling Sight.Est function) 
+}
+NOTE:  sight1 should correspond to the tau^[t], and sight2 to tau^[t+1]
+}
+\details{
+ This function uses the delta method to calculate an approximate variance for the log rate of change, log(tau^[t+1])-log(tau^[t]), while accounting for the positive covariance
+ between the two estimates (as a result of using the same sightability model to correct for detection). 
+}
+\value{
+  \item{loglambda}{log rate of change = log(tau^[t+1]/tau^[t])}
+  \item{varloglamda}{approximate variance of loglambda}
+}
+\author{
+John Fieberg
+}
+
+%% ~Make other sections like Warning with \section{Warning }{....} ~
+
+\seealso{
+   \code{\link{vardiff}}
+}
+\examples{
+## Example using moose survey data 
+data(obs.m) # observational moose survey data
+data(exp.m) # experimental moose survey data
+data(sampinfo.m) # information on sampling rates
+ 
+## Estimate population size in 2006 and 2007 
+ sampinfo<-sampinfo.m[sampinfo.m$year==2007,]
+ N2007<-Sight.Est(observed~ voc, odat=obs.m[obs.m$year==2007,], sdat=exp.m, sampinfo.m[sampinfo.m$year==2007,], method="Wong", logCI=TRUE, alpha=0.05, Vm.boot=FALSE) 
+ N2006<-Sight.Est(observed~ voc, odat=obs.m[obs.m$year==2006,], sdat=exp.m, sampinfo.m[sampinfo.m$year==2006,], method="Wong", logCI=TRUE, alpha=0.05, Vm.boot=FALSE) 
+
+# Log rate of change 
+ varlog.lam(N2006, N2007)
+}
+ 

@@ -1,0 +1,23 @@
+SS.est                  Sightability estimate with variance components
+                        estimator from
+Sight.Est               Sightability Model Estimator
+SightabilityModel-package
+                        Wildlife Sightability Modeling
+Wong.est                Sightability estimate with variance components
+                        estimator from Wong
+covtheta                Estimates var/cov matrix of inflation factors
+                        (1/prob detection) using
+exp.m                   Experimental (test trials) data set used to
+                        estimate detection
+g.fit                   Mountain Goat Sightabilty Model Information
+gdat                    Mountain Goat Survey Data from Olympic National
+                        park
+obs.m                   MN moose survey data
+print.sightest          Print method for sightability estimator
+sampinfo.m              Data set containing sampling information for
+                        observation survey of
+summary.sightest        Summarize sightability estimator
+vardiff                 Function to estimate the variance of the
+                        difference between two
+varlog.lam              Calculates the variance of the log rate of
+                        change between 2 population
