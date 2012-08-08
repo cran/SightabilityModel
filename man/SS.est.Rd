@@ -1,6 +1,5 @@
 \name{SS.est}
 \alias{SS.est}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
   Sightability estimate with variance components estimator from Steinhorst and Samuel (1989) and Samuel et al. (1992).
 
@@ -54,6 +53,7 @@ Logistic regression parameter estimates (from fitted sightability model)
   \item{Varmod}{Estimated variance component due to estimating detection probabilities using test trial data}
 }
 \references{
+ 
   Steinhorst, R. K., and M.D. Samuel. 1989.  Sightability adjustment methods for aerial surveys of wildlife populations.  Biometrics 45:415-425.
 
   Wong, C. 1996.  Population size estimation using the modified Horvitz-Thompson estimator with estimated sighting probabilities.  Dissertation, Colorado State University, Fort Collins, USA.
@@ -63,11 +63,9 @@ John Fieberg
 }
 
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
 \seealso{
 \code{\link{Sight.Est}}, \code{\link{Wong.est}}
 }
- 
+\keyword{methods} 
  
 

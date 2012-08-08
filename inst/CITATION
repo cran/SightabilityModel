@@ -1,0 +1,14 @@
+citHeader("To cite SightabilityModel in publications use:")
+
+citEntry(entry="Article",
+    author="J. Fieberg", 
+    title="Estimating Population Abundance Using Sightability Models: R SightabilityModel Package",
+    Journal="Journal of Statistical Software",
+    Year="In press",     
+   textVersion = 
+         paste("Fieberg, John (In Press).", 
+               "Estimating Population Abundance Using Sightability Models: R SightabilityModel Package.",
+               "Journal of Statistical Software.")
+)
+
+ 

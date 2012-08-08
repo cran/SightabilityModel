@@ -1,6 +1,5 @@
 \name{Wong.est}
 \alias{Wong.est}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Sightability estimate with variance components estimator from Wong (1996)
 }
@@ -10,7 +9,6 @@ Estimates population size, with variance estimated using Wong's (1996) estimator
 \usage{
 Wong.est(total, srates, nh, Nh, stratum, subunit, covars, beta, varbeta, smat = NULL)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{total}{
  Number of animals in each independently sighted group
@@ -68,8 +66,7 @@ Wong.est(total, srates, nh, Nh, stratum, subunit, covars, beta, varbeta, smat = 
 John Fieberg
 }
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
 \seealso{
 \code{\link{Sight.Est}}, \code{\link{SS.est}}
 }
+\keyword{methods}

@@ -1,1 +1,4 @@
-exportPattern("^[[:alpha:]]+")
+export(Sight.Est, covtheta, SS.est, Wong.est, vardiff, varlog.lam)
+S3method(print, sightest)
+S3method(summary, sightest)
+

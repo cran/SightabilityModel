@@ -18,8 +18,8 @@ Experimental (test trials) data set used to estimate detection probabilities for
   }
 }
 \references{
-  Giudice, J H. and Fieberg, J. and Lenarz, M. S.  2011. Spending Degrees of Freedom in a Poor Economy: A Case Study of Building a Sightability Model for Moose in Northeastern Minnesota.
-   Journal of Wildlife Management.}
+  Giudice, J H. and Fieberg, J. and Lenarz, M. S.  2012. Spending Degrees of Freedom in a Poor Economy: A Case Study of Building a Sightability Model for Moose in Northeastern Minnesota.
+   Journal of Wildlife Management 76(1):75-87.}
 \examples{
 data(exp.m)
 exp.m[1:5,]

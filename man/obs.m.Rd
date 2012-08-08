@@ -25,11 +25,11 @@ Operational survey data for moose in MN (during years 2004-2007).  Each record c
   }
 }
 \references{
-  Giudice, John H. and Fieberg, John and Lenarz, Mark S.  2011. Spending Degrees of Freedom in a Poor Economy: A Case Study of Building a Sightability Model for Moose in Northeastern Minnesota.
-   Journal of Wildlife Management.
+ Giudice, J H. and Fieberg, J. and Lenarz, M. S.  2012. Spending Degrees of Freedom in a Poor Economy: A Case Study of Building a Sightability Model for Moose in Northeastern Minnesota.
+   Journal of Wildlife Management 76(1):75-87.
 }
 \examples{
 data(obs.m) 
-obs.m[1:5,]
+obs.m[1:5, ]
 }
 \keyword{datasets}

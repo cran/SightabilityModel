@@ -1,6 +1,5 @@
 \name{summary.sightest}
 \alias{summary.sightest}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Summarize sightability estimator
 }
@@ -10,7 +9,6 @@ Calculates confidence interval (based on asympototic [normal or log-normal assum
 \usage{
  \method{summary}{sightest}(object,...)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{object}{Sightability object, output from call to Sight.Est function.}
   \item{...}{arguments to be passed to or from other methods}
@@ -24,9 +22,7 @@ Calculates confidence interval (based on asympototic [normal or log-normal assum
 John Fieberg
 }
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
 \seealso{
  \code{\link{Sight.Est}}
 }
- 
+\keyword{print} 

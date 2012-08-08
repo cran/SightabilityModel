@@ -7,7 +7,6 @@ Function to estimate the variance of the difference between two population estim
 \usage{
 vardiff(sight1, sight2)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{sight1}{ Sightability model object for the first population estimate (formed by calling Sight.Est function) 
 }
@@ -25,23 +24,23 @@ vardiff(sight1, sight2)
 John Fieberg
 }
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \examples{
 
-## Example using moose survey data 
-data(obs.m) # observational moose survey data
-data(exp.m) # experimental moose survey data
-data(sampinfo.m) # information on sampling rates
+# Example using moose survey data 
+  data(obs.m) # observational moose survey data
+  data(exp.m) # experimental moose survey data
+  data(sampinfo.m) # information on sampling rates
  
-## Estimate population size in 2006 and 2007 
- sampinfo<-sampinfo.m[sampinfo.m$year==2007,]
- N2007<-Sight.Est(observed~ voc, odat=obs.m[obs.m$year==2007,], sdat=exp.m, sampinfo.m[sampinfo.m$year==2007,], method="Wong", logCI=TRUE, alpha=0.05, Vm.boot=FALSE) 
- N2006<-Sight.Est(observed~ voc, odat=obs.m[obs.m$year==2006,], sdat=exp.m, sampinfo.m[sampinfo.m$year==2006,], method="Wong", logCI=TRUE, alpha=0.05, Vm.boot=FALSE) 
+# Estimate population size in 2006 and 2007 
+ sampinfo <- sampinfo.m[sampinfo.m$year == 2007, ]
+ tau.2007 <- Sight.Est(observed ~ voc, odat = obs.m[obs.m$year == 2007, ], sdat = exp.m, sampinfo.m[sampinfo.m$year == 2007, ], method = "Wong", logCI = TRUE, alpha = 0.05, Vm.boot = FALSE) 
+ tau.2006 <- Sight.Est(observed ~ voc, odat = obs.m[obs.m$year == 2006, ], sdat = exp.m, sampinfo.m[sampinfo.m$year == 2006, ], method = "Wong", logCI = TRUE, alpha = 0.05, Vm.boot = FALSE) 
 
-## naive variance
- N2007$est[2]+N2006$est[2]
+# naive variance
+  tau.2007$est[2]+tau.2006$est[2]
 
-## variance after subtracting positvie covariance
- vardiff(N2007,N2006)
+# variance after subtracting positvie covariance
+  vardiff(tau.2007, tau.2006)
 }
+\keyword{methods}

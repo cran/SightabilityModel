@@ -10,7 +10,7 @@ Model averaged regression parameters and unconditional variance-covariance matri
 \usage{data(g.fit)}
 \format{
   The format is:
- beta.g  = list of regression parameters (intercept and parameters associated with GroupSize, Terrain, and X.VegCover) 
+  beta.g  = list of regression parameters (intercept and parameters associated with GroupSize, Terrain, and X.VegCover) 
   varbeta.g = variance-covariance matrix (associated with beta.g) 
 }
 \references{
