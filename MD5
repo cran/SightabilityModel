@@ -1,4 +1,4 @@
-bd3ab8c585ab08401c5968b359418fbc *DESCRIPTION
+9dd890f7621289629238b6ad82cc519a *DESCRIPTION
 89586ffbf1f3e2dcf682b7cc8d308c1a *NAMESPACE
 8345f8389920b0fbc929a2f4eb7675d8 *R/SS.est.R
 e7f66d5bbad1adb59eeee51d16ab102a *R/Sight.Est.R
@@ -13,13 +13,12 @@ e08e0e3c634d6362866781698aa60b9e *data/g.fit.rda
 6c5d423389fe8497ec0bcd46a569e72c *data/gdat.rda
 0d945496713e8c08098ad1f53d5457e9 *data/obs.m.rda
 0c41a5e15457a39303da8a6b2e6de910 *data/sampinfo.m.rda
-367f5a655d9f8453f140e33cdc668bdf *inst/CITATION
-f00e0358b7e766c5075fbddd74c50d46 *inst/doc/SightabilityModel.Rnw
-3948c981397c349b3d069d461555faaa *inst/doc/SightabilityModel.pdf
-513264e6665448722ce88faf09a78e40 *inst/doc/vignette.bib
+c2c7d2d9376e074bdd2ce74bf55dcd02 *inst/CITATION
+795ea7fae35e0e8ac3501f8330cb1c89 *inst/doc/SightabilityModel.Rnw
+e5e8c7d2fe34efc6a7d6ba3ed0135459 *inst/doc/SightabilityModel.pdf
 33b99938ecbc85e1501e4a4c5cf9df32 *man/SS.est.Rd
-ea208cd3ffee6a0ff9b9dfdb21f31a75 *man/Sight.Est.Rd
-2801407bf651425cf483df651f3a1e01 *man/SightabilityModel-package.Rd
+8ad7b8519b813d713f2475f91cdd0484 *man/Sight.Est.Rd
+45ac7730bbf5e9dbae2c7a87b997b11f *man/SightabilityModel-package.Rd
 1bc23eaa0d9a6ad32b2e3c01eea2a1b5 *man/Wong.est.Rd
 0259ca83be5b6e23afa49094d1455ce4 *man/covtheta.Rd
 05a2f94acbfd7478745a98cac6a2952f *man/exp.m.Rd
@@ -31,3 +30,5 @@ ea208cd3ffee6a0ff9b9dfdb21f31a75 *man/Sight.Est.Rd
 48963902ac9d7411d16b859c02e29b9f *man/summary.sightest.Rd
 a8837f5af77f308f81fbcd5c41fcac36 *man/vardiff.Rd
 4695de0dabc8612f7b024624b483ed0f *man/varlog.lam.Rd
+795ea7fae35e0e8ac3501f8330cb1c89 *vignettes/SightabilityModel.Rnw
+4e8926754a06a39fcdd1f09541aa410d *vignettes/vignette.bib

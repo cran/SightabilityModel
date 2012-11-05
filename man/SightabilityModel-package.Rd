@@ -14,8 +14,8 @@ Uses logistic regression to model the probability of detection as a function of 
 \tabular{ll}{
 Package: \tab SightabilityModel\cr
 Type: \tab Package\cr
-Version: \tab 1.1\cr
-Date: \tab 2012-08-08\cr
+Version: \tab 1.2\cr
+Date: \tab 2012-11-05\cr
 License: \tab GPL-2\cr
 LazyLoad: \tab yes\cr
 }
@@ -28,8 +28,8 @@ Maintainer: John Fieberg <john.fieberg@state.mn.us>
 
 }
 \references{
-Fieberg, J.  In Press. Estimating Population Abundance Using Sightability Models: R SightabilityModel Package. Journal of
-  Statistical Software. 
+Fieberg, J.  2012.  Estimating Population Abundance Using Sightability Models: R SightabilityModel Package. Journal of Statistical Software, 51(9), 1-20.
+        URL http://www.jstatsoft.org/v51/i09/. 
 
  Steinhorst, Kirk R. and Samuel, Michael D. 1989. Sightability Adjustment Methods for Aerial Surveys of Wildlife Populations.
 Biometrics 45:415--425.
