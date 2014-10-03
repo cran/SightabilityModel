@@ -40,8 +40,12 @@ John Fieberg
  
 # Estimate population size in 2006 and 2007 
   sampinfo <- sampinfo.m[sampinfo.m$year==2007, ]
-  tau.2007 <- Sight.Est(observed ~ voc, odat = obs.m[obs.m$year==2007, ], sdat = exp.m, sampinfo.m[sampinfo.m$year == 2007, ], method = "Wong", logCI = TRUE, alpha = 0.05, Vm.boot = FALSE) 
-  tau.2006 <- Sight.Est(observed ~ voc, odat = obs.m[obs.m$year==2006, ], sdat = exp.m, sampinfo.m[sampinfo.m$year == 2006, ], method = "Wong", logCI = TRUE, alpha = 0.05, Vm.boot = FALSE) 
+  tau.2007 <- Sight.Est(observed ~ voc, odat = obs.m[obs.m$year==2007, ],
+                          sdat = exp.m, sampinfo.m[sampinfo.m$year == 2007, ],
+                          method = "Wong", logCI = TRUE, alpha = 0.05, Vm.boot = FALSE) 
+  tau.2006 <- Sight.Est(observed ~ voc, odat = obs.m[obs.m$year==2006, ],
+                          sdat = exp.m, sampinfo.m[sampinfo.m$year == 2006, ], 
+                          method = "Wong", logCI = TRUE, alpha = 0.05, Vm.boot = FALSE)  
 
 # Log rate of change 
   varlog.lam(tau.2006, tau.2007)

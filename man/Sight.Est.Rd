@@ -3,7 +3,9 @@
 \title{Sightability Model Estimator}
 \description{Estimates population abundance by 1) fitting a sightability (logistic regression) model to "test trial" data;
   2) applying the fitted model to independent (operational) survey data to correct for detection rates < 1.}
-\usage{Sight.Est(form, sdat, odat, sampinfo, method = "Wong", logCI = TRUE, alpha = 0.05, Vm.boot = FALSE, nboot = 1000, bet = NULL, varbet = NULL)}
+\usage{Sight.Est(form, sdat, odat, sampinfo, method = "Wong", 
+      logCI = TRUE, alpha = 0.05, Vm.boot = FALSE, nboot = 1000,
+      bet = NULL, varbet = NULL)}
 
 \arguments{
   \item{form}{
@@ -101,7 +103,9 @@ John Fieberg, Wildlife Biometrician, Minnesota Department of Natural Resources
  
 # Estimate population size in 2007 only
   sampinfo <- sampinfo.m[sampinfo.m$year == 2007,]
-  Sight.Est(observed ~ voc, odat = obs.m[obs.m$year == 2007,], sdat = exp.m, sampinfo, method = "Wong", logCI = TRUE, alpha = 0.05, Vm.boot = FALSE) 
+  Sight.Est(observed ~ voc, odat = obs.m[obs.m$year == 2007,],
+    sdat = exp.m, sampinfo, method = "Wong", 
+    logCI = TRUE, alpha = 0.05, Vm.boot = FALSE) 
 
 
 # BELOW CODE IS SOMEWHAT TIME INTENSIVE (fits models using 2 variance estimators to 3 years of data)
@@ -113,24 +117,33 @@ John Fieberg, Wildlife Biometrician, Minnesota Department of Natural Resources
     sampinfo <- sampinfo.m[sampinfo.m$year == i,]
 
 # Wong's variance estimator 
-    temp <- Sight.Est(observed ~ voc, odat = obs.m[obs.m$year == i,], sdat = exp.m, sampinfo, method = "Wong", logCI = TRUE, alpha = 0.05, Vm.boot = FALSE) 
+    temp <- Sight.Est(observed ~ voc, odat = obs.m[obs.m$year == i,],
+       sdat = exp.m, sampinfo, method = "Wong", 
+       logCI = TRUE, alpha = 0.05, Vm.boot = FALSE) 
     tau.Wong[count, ] <- unlist(summary(temp)) 
  
 # Steinhorst and Samuel (with Samuel et al. 1992 modification) 
-    temp <- Sight.Est(observed ~ voc, odat = obs.m[obs.m$year == i,],  sdat = exp.m, sampinfo, method = "SS")
+    temp <- Sight.Est(observed ~ voc, odat = obs.m[obs.m$year == i,],  
+       sdat = exp.m, sampinfo, method = "SS")
     tau.SS[count, ] <- unlist(summary(temp)) 
     count<-count+1
   }  
   rownames(tau.Wong) <- rownames(tau.SS) <- 2004:2007
   colnames(tau.Wong) <- colnames(tau.SS) <- c("tau.hat","LCL","UCL")
-  (tau.Wong <- apply(tau.Wong, 1:2, FUN=function(x){as.numeric(gsub(",", "", x, fixed = TRUE))}))
-  (tau.SS <-   (tau.Wong <- apply(tau.Wong, 1:2, FUN = function(x){as.numeric(gsub(",", "", x, fixed = TRUE))})))
+  (tau.Wong <- apply(tau.Wong, 1:2, 
+      FUN=function(x){as.numeric(gsub(",", "", x, fixed = TRUE))}))
+  (tau.SS <-   (tau.Wong <- apply(tau.Wong, 1:2, 
+     FUN = function(x){as.numeric(gsub(",", "", x, fixed = TRUE))})))
 
 \dontrun{
   require(gplots)
   par(mfrow = c(1,1))
-    plotCI(2004:2007-.1, tau.Wong[,1], ui = tau.Wong[,3], li = tau.Wong[,2], type = "l", xlab = "", ylab = "Population estimate", xaxt = "n", xlim=c(2003.8, 2007.2))
-    plotCI(2004:2007+.1, tau.SS[,1], ui = tau.SS[,3], li = tau.SS[,2], type = "b", lty = 2, add = TRUE)
+    plotCI(2004:2007-.1, tau.Wong[,1], ui = tau.Wong[,3], 
+        li = tau.Wong[,2], type = "l", xlab = "", 
+        ylab = "Population estimate", xaxt = "n",
+        xlim=c(2003.8, 2007.2))
+    plotCI(2004:2007+.1, tau.SS[,1], ui = tau.SS[,3], li = tau.SS[,2], 
+         type = "b", lty = 2, add = TRUE)
     axis(side = 1, at = 2004:2007, labels = 2004:2007)  
   }
 }

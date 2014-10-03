@@ -14,8 +14,8 @@ Uses logistic regression to model the probability of detection as a function of 
 \tabular{ll}{
 Package: \tab SightabilityModel\cr
 Type: \tab Package\cr
-Version: \tab 1.2\cr
-Date: \tab 2012-11-05\cr
+Version: \tab 1.3\cr
+Date: \tab 2014-10-03\cr
 License: \tab GPL-2\cr
 LazyLoad: \tab yes\cr
 }
@@ -24,7 +24,7 @@ LazyLoad: \tab yes\cr
 \author{
 John Fieberg
 
-Maintainer: John Fieberg <john.fieberg@state.mn.us>
+Maintainer: John Fieberg <jfieberg@umn.edu>
 
 }
 \references{
