@@ -1,6 +1,6 @@
-#' Sightability Model Estimator
+#' Sightability Model Estimator - Ratio of variables
 #' 
-#' Estimates population abundance by 1) fitting a sightability (logistic
+#' Estimates population ratios by 1) fitting a sightability (logistic
 #' regression) model to "test trial" data; 2) applying the fitted model to
 #' independent (operational) survey data to correct for detection rates < 1.
 #' 
@@ -33,12 +33,15 @@
 #' variable = 1 if the animal was observed and 0 otherwise) and the covariates
 #' used to model detection probabilities.
 #' @param odat 'observational survey' data frame containing the following
-#' variable names (\emph{stratum, subunit, total}) along with the same
-#' covariates used to model detection probabilities (each record corresponds to
-#' an independently sighted group of animals).  \emph{stratum} = stratum
-#' identifier (will take on a single value for non-stratified surveys);
-#' \emph{subunit} = numeric plot unit identifier; \emph{total} = total number
-#' of observed animals (for each independently sighted group of animals).
+#' variable names (\emph{stratum, subunit, numerator, denominator}) along with
+#' the same covariates used to model detection probabilities (each record
+#' corresponds to an independently sighted group of animals).  \emph{stratum}
+#' = stratum identifier (will take on a single value for non-stratified
+#' surveys); \emph{subunit} = numeric plot unit identifier; \emph{numerator} =
+#' total number of observed animals (for each independently sighted group of
+#' animals for numerator of ratio); \emph{denominator} = total number of
+#' observed animals (for each independently sighted group of animals for
+#' denominator of ratio).
 #' @param sampinfo data frame containing sampling information pertaining to the
 #' observational survey.  Must include the following variables (\emph{stratum,
 #' nh, Nh}).  \emph{stratum} = stratum identifier (must take on the same values
@@ -64,16 +67,17 @@
 #' @param varbet variance-covariance matrix for beta^ (if the sightability
 #' model is not to be fit by Sight.Est).  Make sure the order is consistent
 #' with the specification in the "form" argument.
-#' @return An object of class \code{sightest}, a list that includes the
+#' @return An object of class \code{sightest_ratio}, a list that includes the
 #' following elements: \item{sight.model}{the fitted sightability model}
-#' \item{est}{abundance estimate [tau.hat] and its estimate of uncertainty
-#' [Vartot] as well as variance components due to sampling [Varsamp], detection
-#' [VarSight], and model uncertainty [VarMod]} The list also includes the
-#' original test trial and operational survey data, sampling information, and
-#' information needed to construct a confidence interval for the population
-#' estimate.
-#' @author John Fieberg, Wildlife Biometrician, Minnesota Department of Natural
-#' Resources
+#' \item{est}{ratio estimate, ratio.hat,abundance estimate [tau.hat] and its
+#' estimate of uncertainty [Varratio] as well as variance components due to
+#' sampling [Varsamp], detection [VarSight], and model uncertainty [VarMod]}
+#' The list also includes the estimates for the numerator and denominator
+#' total, the original test trial and operational survey data, sampling
+#' information, and information needed to construct a confidence interval for
+#' the population estimate.
+#' @author Carl James Schwarz, StatMathComp Consulting by Schwarz,
+#' cschwarz.stat.sfu.ca@@gmail.com
 #' @references
 #' 
 #' Fieberg, J.  2012.  Estimating Population Abundance Using Sightability
@@ -103,77 +107,49 @@
 #'   data(exp.m) # experimental survey data frame
 #'   data(sampinfo.m) # information on sampling rates (contained in a data frame)
 #'  
-#' # Estimate population size in 2007 only
+#' # Estimate ratio of bulls to cows in 2007 only
 #'   sampinfo <- sampinfo.m[sampinfo.m$year == 2007,]
-#'   Sight.Est(observed ~ voc, odat = obs.m[obs.m$year == 2007,],
+#' 
+#'   obs.m$numerator   <- obs.m$bulls
+#'   obs.m$denominator <- obs.m$cows
+#'   
+#'   Sight.Est.Ratio(observed ~ voc, odat = obs.m[obs.m$year == 2007,],
 #'     sdat = exp.m, sampinfo, method = "Wong", 
 #'     logCI = TRUE, alpha = 0.05, Vm.boot = FALSE) 
 #' 
 #' 
-#' # BELOW CODE IS SOMEWHAT TIME INTENSIVE (fits models using 2 variance estimators to 3 years of data)
-#' # Estimate population size for 2004-2007
-#' # Compare Wong's and Steinhorst and Samuel variance estimators
-#'   tau.Wong <- tau.SS <- matrix(NA,4,3)
-#'   count <- 1
-#'   for(i in 2004:2007){
-#'     sampinfo <- sampinfo.m[sampinfo.m$year == i,]
-#' 
-#' # Wong's variance estimator 
-#'     temp <- Sight.Est(observed ~ voc, odat = obs.m[obs.m$year == i,],
-#'        sdat = exp.m, sampinfo, method = "Wong", 
-#'        logCI = TRUE, alpha = 0.05, Vm.boot = FALSE) 
-#'     tau.Wong[count, ] <- unlist(summary(temp)) 
-#'  
-#' # Steinhorst and Samuel (with Samuel et al. 1992 modification) 
-#'     temp <- Sight.Est(observed ~ voc, odat = obs.m[obs.m$year == i,],  
-#'        sdat = exp.m, sampinfo, method = "SS")
-#'     tau.SS[count, ] <- unlist(summary(temp)) 
-#'     count<-count+1
-#'   }  
-#'   rownames(tau.Wong) <- rownames(tau.SS) <- 2004:2007
-#'   colnames(tau.Wong) <- colnames(tau.SS) <- c("tau.hat","LCL","UCL")
-#'   (tau.Wong <- apply(tau.Wong, 1:2, 
-#'       FUN=function(x){as.numeric(gsub(",", "", x, fixed = TRUE))}))
-#'   (tau.SS <-   (tau.Wong <- apply(tau.Wong, 1:2, 
-#'      FUN = function(x){as.numeric(gsub(",", "", x, fixed = TRUE))})))
-#' 
-#' \dontrun{
-#'   require(gplots)
-#'   par(mfrow = c(1,1))
-#'     plotCI(2004:2007-.1, tau.Wong[,1], ui = tau.Wong[,3], 
-#'         li = tau.Wong[,2], type = "l", xlab = "", 
-#'         ylab = "Population estimate", xaxt = "n",
-#'         xlim=c(2003.8, 2007.2))
-#'     plotCI(2004:2007+.1, tau.SS[,1], ui = tau.SS[,3], li = tau.SS[,2], 
-#'          type = "b", lty = 2, add = TRUE)
-#'     axis(side = 1, at = 2004:2007, labels = 2004:2007)  
-#'   }
-#'
-#' @export Sight.Est
-#' @import stats
-#' @import utils
+#' @export Sight.Est.Ratio
 
 
-Sight.Est <-
+Sight.Est.Ratio <-
 function(form, sdat=NULL, odat, sampinfo, method="Wong", logCI=TRUE, alpha=0.05, Vm.boot = FALSE, nboot = 1000, bet = NULL, varbet = NULL){
 
+  # Estimate a ratio of variables using the sightability model
+  #   Direct questions to Carl James Schwarz (cschwarz.stat.sfu.ca@gmail.com)
+  # Same calling sequence as Sight.Est except
+  #   odat must contain two variables - numerator and denominator for the ratio of the two variables
+  #   method must must be Wong - I have not implemented the SS methods for ratios
+  
+  # Items marked with ### CJS ### are modifications to original start of code from Sight.Est make by me
+  
   # form = model formula (for fitting logistic regression model to sightability dataset)
   # sdat = sightability dataset containing response and sightability covariates
   # odat = dataset containing observed groups, sample unit ids, stratum identifiers, and sampling rates
   # sampinfo = data frame with sampling information (number of sample (nh) and population units (Nh) in each stratum
   # Method = method of variance estimation 
-  # logCI = should the confidence interval be constructed under the assumption that tau^ has a lognormal distribution
+  # logCI = should the confidence interval be constructed under the assumption that tau^ has a  lognorma distribution
   # alpha = type I error rate for confidence interval construction
   # Vm.boot = should a bootstrap be used to estimate cov(theta[i,j],theta[i',j']), var/cov matrix of the expansion factors for detection
   # nboot = number of bootstraps if Vm.boot = TRUE
   # beta=regression parameters (can be passed, rather than using Sight.Est to fit the model)
   # varbet= var/cov matrix for regression parameter estimates (can be passed, rather than using Sight.Est to fit the model)
 
+  version <- "2020-06-01"
   # Check arguments
     if(is.null(sdat) & (is.null(bet) | is.null(varbet) )){
       stop("Need to specify sightability data set or beta^ and var(beta^)")
     }   
-    if(method %in%c("Wong", "SS") != TRUE){
+    if(!all(method %in%c("Wong", "SS"))){
       stop("Method must be Wong or SS")
     }
     if(is.null(bet)){   
@@ -188,13 +164,13 @@ function(form, sdat=NULL, odat, sampinfo, method="Wong", logCI=TRUE, alpha=0.05,
       beta <- bet
       varbet <- varbet
     }  
-    if(sum(c("stratum", "subunit", "total")%in%names(odat)) != 3){
-      stop("Need to have variables stratum, subunit,  and total in observational survey dataset.  These are CASE-SENSITIVE")
+    if(!all(c("stratum", "subunit", "numerator","denominator")%in%names(odat))){  ### CJS ###
+      stop("Need to have variables stratum, subunit, numerator, denominator in observational survey dataset.  These are CASE-SENSITIVE")
     
     }  
-    if(sum(odat$total == 0) > 0){
-       print("Dropping records with 0 animals in the observational data set")
-       odat <- odat[odat$total > 0, ]
+    if(any((odat$numerator+odat$numerator) == 0)){  ### CJS ###
+       print("Dropping records with 0 animals in both numerator and denominator in the observational data set")
+       odat <- odat[(odat$numerator + odat$denominator) > 0, ]
     }   
     if(sum(c("nh","Nh", "stratum")%in%names(sampinfo)) != 3){
       stop("Need to have variables nh, Nh, and stratum in dataset containing sampling information")
@@ -209,11 +185,13 @@ function(form, sdat=NULL, odat, sampinfo, method="Wong", logCI=TRUE, alpha=0.05,
  # create sampling variables
     nh <- sampinfo$nh
     Nh <- sampinfo$Nh
-  
+ # check that strata labels are unique  ### CJS ###
+    if(any(duplicated(sampinfo$stratum)))stop("Stratum labels must be unique in sampinfo")
+    
  # Make sure strata are numbered 1:h
     sampinfo$stemp <- 1:nrow(sampinfo)
   
- # Want srates to be same legnth as total vector
+ # Want srates to be same length as numerator and denominator vector
     sampinfo$samp.rates <- sampinfo$nh/sampinfo$Nh
     odat <- merge(odat, sampinfo, by.x = "stratum", by.y = "stratum")  
   
@@ -221,8 +199,9 @@ function(form, sdat=NULL, odat, sampinfo, method="Wong", logCI=TRUE, alpha=0.05,
     srates <- odat$samp.rates 
     stratum <- odat$stemp
     subunit <- odat$subunit
-    total <- odat$total
-   
+    numerator <- odat$numerator
+    denominator <- odat$denominator
+
     if(is.null(bet)){ 
       tempnm <- terms(form, data = sdat)
     }else{tempnm <- terms(form, data = odat)}
@@ -243,26 +222,30 @@ function(form, sdat=NULL, odat, sampinfo, method="Wong", logCI=TRUE, alpha=0.05,
         bets[i,] <- coef(fit)  # pull of coefficients
         varbets[i,,] <- summary(fit)$cov.unscaled  # pull off variance/covariance matrix
       }
-      smat <- covtheta(total, srates, stratum, subunit, covars, bets, varbets, nboot)
+      smat <- covtheta(numerator, srates, stratum, subunit, covars, bets, varbets, nboot)
     }
     else{smat <- NULL}  
     if(method == "Wong"){
-      est <- Wong.est(total, srates, nh, Nh, stratum, subunit, covars, beta, varbet, smat)
+      est <- Wong.est.Ratio(numerator, denominator, srates, nh, Nh, stratum, subunit, covars, beta, varbet, smat)
     }
-    if(method == "SS"){
-      est <- SS.est(total, srates, nh, Nh, stratum, subunit, covars, beta, varbet, smat)
+    if(method == "SS"){   ### CJS ### code fragment remains, but is not implemented
+      est <- SS.est.Ratio(numerator, denominator, srates, nh, Nh, stratum, subunit, covars, beta, varbet, smat)
     }    
     out <- NULL
     out$call <- match.call()
     out$sight.model <- sight.model
     out$est <- est$est
+    out$numerator <- est$numerator
+    out$denominator <- est$denominator
     out$var.method <- est$var.method 
-    if(is.null(sdat) != TRUE){out$sdat <- sdat}
-      out$odat <- odat
-      out$samp <- sampinfo[,c("stratum", "nh", "Nh")]
-      out$CI.method <- "lognormal"
-      if(logCI == FALSE){  out$CI.method <- "normal"}
-      out$alpha <- alpha
-      class(out) <- "sightest"
-      out
+    out$cov.nhat.dhat.components <- est$cov.nhat.dhat.components
+    if(!is.null(sdat)){out$sdat <- sdat}
+    out$odat <- odat
+    out$samp <- sampinfo[,c("stratum", "nh", "Nh")]
+    out$CI.method <- "lognormal"
+    if(logCI == FALSE){  out$CI.method <- "normal"}
+    out$alpha <- alpha
+    class(out) <- "sightest_ratio"
+    out$version <- version
+    out
 }
