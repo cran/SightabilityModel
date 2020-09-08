@@ -82,7 +82,7 @@
 #' 
 #' Fieberg, J.  2012.  Estimating Population Abundance Using Sightability
 #' Models: R SightabilityModel Package. Journal of Statistical Software, 51(9),
-#' 1-20.  URL http://www.jstatsoft.org/v51/i09/.
+#' 1-20.  URL https://www.jstatsoft.org/v51/i09/.
 #' 
 #' Fieberg, John and Giudice, John. 2008 Variance of Stratified Survey
 #' Estimators With Probability of Detection Adjustments. Journal of Wildlife
@@ -130,7 +130,7 @@ function(form, sdat=NULL, odat, sampinfo, method="Wong", logCI=TRUE, alpha=0.05,
   #   odat must contain two variables - numerator and denominator for the ratio of the two variables
   #   method must must be Wong - I have not implemented the SS methods for ratios
   
-  # Items marked with ### CJS ### are modifications to original start of code from Sight.Est make by me
+  # Items marked with ### CJS ### are modifications to original start of code from Sight.Est made by me
   
   # form = model formula (for fitting logistic regression model to sightability dataset)
   # sdat = sightability dataset containing response and sightability covariates

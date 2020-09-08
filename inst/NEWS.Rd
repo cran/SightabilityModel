@@ -15,7 +15,16 @@
 %   }
 %}
 
-\section{CHANGES IN VERSION 1.4}{
+\section{CHANGES IN VERSION 1.4.1}{
+  \subsection{USER-VISIBLE CHANGES}{
+    \itemize{
+      \item Modified code to only select variables of interest when doing merge to avoid merging on extraneous variables.
+      Package now produces a warning if redundant variables are detected rather than an error.
+     }
+   }
+}
+
+\section{CHANGES IN VERSION 1.4.0}{
   \subsection{USER-VISIBLE CHANGES}{
     \itemize{
       \item Added function to estimate ratio of variables
