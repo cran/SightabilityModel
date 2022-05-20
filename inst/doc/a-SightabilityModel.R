@@ -1,13 +1,13 @@
-### R code from vignette source 'SightabilityModel.Rnw'
+### R code from vignette source 'a-SightabilityModel.Rnw'
 
 ###################################################
-### code chunk number 1: SightabilityModel.Rnw:485-486
+### code chunk number 1: a-SightabilityModel.Rnw:485-486
 ###################################################
  options(prompt = "R> ", continue = "+  ", width = 70, useFancyQuotes = FALSE)
 
 
 ###################################################
-### code chunk number 2: SightabilityModel.Rnw:488-492
+### code chunk number 2: a-SightabilityModel.Rnw:488-492
 ###################################################
  library("SightabilityModel")
  data("obs.m")
@@ -16,25 +16,25 @@
 
 
 ###################################################
-### code chunk number 3: SightabilityModel.Rnw:495-496
+### code chunk number 3: a-SightabilityModel.Rnw:495-496
 ###################################################
 exp.m[1:5, ] # first 5 observations
 
 
 ###################################################
-### code chunk number 4: SightabilityModel.Rnw:506-507
+### code chunk number 4: a-SightabilityModel.Rnw:506-507
 ###################################################
 obs.m[1:5, ]
 
 
 ###################################################
-### code chunk number 5: SightabilityModel.Rnw:524-525
+### code chunk number 5: a-SightabilityModel.Rnw:524-525
 ###################################################
 sampinfo.m
 
 
 ###################################################
-### code chunk number 6: SightabilityModel.Rnw:535-538
+### code chunk number 6: a-SightabilityModel.Rnw:535-538
 ###################################################
 est.2004 <- Sight.Est(observed ~ voc, odat = subset(obs.m,
     year == 2004), sdat = exp.m, sampinfo = subset(sampinfo.m,
@@ -42,19 +42,19 @@ est.2004 <- Sight.Est(observed ~ voc, odat = subset(obs.m,
 
 
 ###################################################
-### code chunk number 7: SightabilityModel.Rnw:547-548
+### code chunk number 7: a-SightabilityModel.Rnw:547-548
 ###################################################
 print(est.2004)
 
 
 ###################################################
-### code chunk number 8: SightabilityModel.Rnw:567-568
+### code chunk number 8: a-SightabilityModel.Rnw:567-568
 ###################################################
 summary(est.2004)
 
 
 ###################################################
-### code chunk number 9: SightabilityModel.Rnw:585-597
+### code chunk number 9: a-SightabilityModel.Rnw:585-597
 ###################################################
 tau.hats <- matrix(NA, 3, 5)
 rownames(tau.hats) <- c("Stratum 1", "Stratum 2", "Stratum 3")
@@ -71,7 +71,7 @@ print(format(tau.hats, big.mark = ","),  quote = FALSE)
 
 
 ###################################################
-### code chunk number 10: SightabilityModel.Rnw:602-609
+### code chunk number 10: a-SightabilityModel.Rnw:602-609
 ###################################################
 est.2004 <- Sight.Est(observed ~ voc, odat = subset(obs.m,
     year == 2004), sdat = exp.m, sampinfo = subset(sampinfo.m,
@@ -83,7 +83,7 @@ print(format(naive.tau.hats, big.mark = ","), quote = FALSE)
 
 
 ###################################################
-### code chunk number 11: SightabilityModel.Rnw:642-651
+### code chunk number 11: a-SightabilityModel.Rnw:642-651
 ###################################################
 est.2006 <- Sight.Est(observed ~ voc, odat = subset(obs.m,
     year == 2006), sdat = exp.m, subset(sampinfo.m,
@@ -97,20 +97,20 @@ print(format(vdiff, nsmall = 0, big.mark = ","), quote = FALSE)
 
 
 ###################################################
-### code chunk number 12: SightabilityModel.Rnw:654-656
+### code chunk number 12: a-SightabilityModel.Rnw:654-656
 ###################################################
 naive<-est.2006$est[2] + est.2007$est[2]
 print(format(naive, nsmall = 0, big.mark = ","), quote = FALSE)
 
 
 ###################################################
-### code chunk number 13: SightabilityModel.Rnw:688-689
+### code chunk number 13: a-SightabilityModel.Rnw:688-689
 ###################################################
 library("splines")
 
 
 ###################################################
-### code chunk number 14: SightabilityModel.Rnw:692-699
+### code chunk number 14: a-SightabilityModel.Rnw:692-699
 ###################################################
 exp.m$voc.ns <- ns(exp.m$voc, df = 3)
 obs.m$voc.ns <- predict(exp.m$voc.ns, obs.m$voc)
@@ -122,44 +122,44 @@ print(format(round(ns.est$est, 0),  big.mark = ","), quote = FALSE)
 
 
 ###################################################
-### code chunk number 15: SightabilityModel.Rnw:726-727
+### code chunk number 15: a-SightabilityModel.Rnw:726-727
 ###################################################
 data("g.fit")
 
 
 ###################################################
-### code chunk number 16: SightabilityModel.Rnw:729-730
+### code chunk number 16: a-SightabilityModel.Rnw:729-730
 ###################################################
 g.fit
 
 
 ###################################################
-### code chunk number 17: SightabilityModel.Rnw:732-733
+### code chunk number 17: a-SightabilityModel.Rnw:732-733
 ###################################################
 data("gdat")
 
 
 ###################################################
-### code chunk number 18: SightabilityModel.Rnw:735-736
+### code chunk number 18: a-SightabilityModel.Rnw:735-736
 ###################################################
 gdat[1:5, ]
 
 
 ###################################################
-### code chunk number 19: SightabilityModel.Rnw:740-742
+### code chunk number 19: a-SightabilityModel.Rnw:740-742
 ###################################################
 sampinfo<-data.frame(nh = c(6, 23, 11), Nh =
 c(6, 27, 65), stratum=c(1,2,3))
 
 
 ###################################################
-### code chunk number 20: SightabilityModel.Rnw:746-747
+### code chunk number 20: a-SightabilityModel.Rnw:746-747
 ###################################################
 table(gdat$stratum)
 
 
 ###################################################
-### code chunk number 21: SightabilityModel.Rnw:753-757
+### code chunk number 21: a-SightabilityModel.Rnw:753-757
 ###################################################
 goat.est<-Sight.Est(observed ~ GroupSize + Terrain + pct.VegCover,
     odat = gdat,  sampinfo = sampinfo[1:2, ], bet = g.fit$beta.g,
@@ -168,7 +168,7 @@ print(goat.est)
 
 
 ###################################################
-### code chunk number 22: SightabilityModel.Rnw:785-796
+### code chunk number 22: a-SightabilityModel.Rnw:785-796
 ###################################################
 analytical.est <- Sight.Est(observed ~ voc, odat = subset(obs.m,
    year == 2004), sdat = subset(exp.m, year == 2005), subset(sampinfo.m,
