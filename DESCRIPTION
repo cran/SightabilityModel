@@ -1,7 +1,7 @@
 Package: SightabilityModel
 Type: Package
 Title: Wildlife Sightability Modeling
-Version: 1.5
+Version: 1.5.1
 Date: 2022-06-01
 Authors@R: c(
     person("Fieberg", "John",       email = "jfieberg@umn.edu",               role = c("aut")),
@@ -17,11 +17,11 @@ LazyLoad: yes
 RoxygenNote: 7.2.0
 Suggests: car, data.table, GGally, ggplot2, kableExtra, knitr, readxl,
         reshape2, rmarkdown, tidyr, tidyverse, R.rsp
-VignetteBuilder: R.rsp
+VignetteBuilder: R.rsp, knitr, rmarkdown
 NeedsCompilation: no
-Packaged: 2022-05-20 03:26:17 UTC; cschwarz
+Packaged: 2022-06-01 04:50:39 UTC; cschwarz
 Author: Fieberg John [aut],
   Schwarz Carl James [aut, cre]
 Maintainer: Schwarz Carl James <cschwarz.stat.sfu.ca@gmail.com>
 Repository: CRAN
-Date/Publication: 2022-05-20 07:10:04 UTC
+Date/Publication: 2022-06-01 05:10:02 UTC
