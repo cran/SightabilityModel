@@ -20,12 +20,12 @@
 library(car)
 library(formula.tools)
 library(GGally)
+library(ggplot2)
 library(kableExtra)
 library(mvtnorm)
 library(plyr)
 library(readxl)
 library(SightabilityModel)
-library(tidyverse)
 
 options(width=200)
 
@@ -55,7 +55,10 @@ expit <- function(x){ 1/(1+exp(-x))}
 #' 
 #' - review the two different types of stratification
 #' - demonstrate how to analyze a domain stratified survey and the potential problems
-#' in using *MoosePopR_DomStrat()* and *SightabilityPopR()*
+#' in using *MoosePopR()* and *SightabilityPopR()*
+#' - demonstrate the use of new functions, *MoosePopR_DomStrat()*, *SightabilityPopR_DomStrat()*,
+#' *MoosePopR_DomStrat_bootrep()* to deal with domain stratification and computing standard errors
+#' using bootstrapping that account for multiple measurements (domains) on the same sampling unit (block).
 #' 
 #' 
 #' # Types of stratification
@@ -342,9 +345,9 @@ ggplot()+
 #' ## CAUTIONS
 #' 
 #' As shown above, the two types of stratification are quite different and it is unfortunate that
-#' the term "stratification" is used for both types of designs. Traditionally, stratification is reserved
-#' for the among-sampling-unit strata where each sampling-unit can belong to one and only one stratum and
-#' domain estimation is reserved for the within-sampling-unit stratification.
+#' the term "stratification" is used for both types of designs. Traditionally, the term *stratification* is reserved
+#' for the among-sampling-unit strata where each sampling-unit can belong to one and only one stratum, and
+#' the term *domain estimation* is reserved for the within-sampling-unit stratification.
 #' 
 #' This has implications when using existing software. 
 #' For example the *MoosePopR()* and *SightabilityPopR()* functions 
@@ -2142,14 +2145,14 @@ temp$LCL.adj <- temp$est.adj.scf + qnorm((1-temp$conf.level)/2)*temp$SE.adj.SCF.
 temp$UCL.adj <- temp$est.adj.scf + qnorm((1+temp$conf.level)/2)*temp$SE.adj.SCF.ds
 
 temp <- temp[,c("Stratum.Domain","estimate","SE","SCF","est.adj.scf","SE.adj.scf","se.inflate","SE.adj.SCF.ds",
-                "LCL.adj","UCL.adj")]
+                "conf.level","LCL.adj","UCL.adj")]
 temp <- temp[order(temp$Stratum.Domain),]
 kable(temp, row.names=FALSE,
       caption="Estimated abundance using per-area (MoosePopR), corrected for sightability, and domain stratification",
-      col.names=c("StratumDomain","Est","SE","SCF","Est","SE","SE inflate","SE","LCL", "UCL"),
-      digits=c(0, 0,0, 2, 0,0, 2, 0,0,0)) %>%
+      col.names=c("StratumDomain","Est","SE","SCF","Est","SE","SE inflate","SE","Conf level","LCL", "UCL"),
+      digits=c(0, 0,0, 2, 0,0, 2, 0,  2,0,0)) %>%
       add_header_above(c(" "=1, "Uncorrected for SCF"=2,
-                         " "=1, "Apply SCF"=2," "=1,"Corrected for SCF and domain"=3)) %>%
+                         " "=1, "Apply SCF"=2," "=1,"Corrected for SCF and domain"=4)) %>%
       kable_styling("bordered",position = "center", full_width=FALSE, latex_options = "HOLD_position")
 
 
@@ -2219,14 +2222,14 @@ temp$LCL.adj <- temp$est.adj.scf + qnorm((1-temp$conf.level)/2)*temp$SE.adj.SCF.
 temp$UCL.adj <- temp$est.adj.scf + qnorm((1+temp$conf.level)/2)*temp$SE.adj.SCF.ds
 
 temp <- temp[,c("Stratum.Domain","estimate","SE","SCF","est.adj.scf","SE.adj.scf","se.inflate","SE.adj.SCF.ds",
-                "LCL.adj","UCL.adj")]
+                "conf.level","LCL.adj","UCL.adj")]
 temp <- temp[order(temp$Stratum.Domain),]
 kable(temp, row.names=FALSE,
       caption="Estimated density using per-area (MoosePopR), corrected for sightability, and domain stratification",
-      col.names=c("StratumDomain","Est","SE","SCF","Est","SE","SE inflate","SE","LCL", "UCL"),
-      digits=c(0, 3,3, 2, 3,3, 2, 3,3,3)) %>%
+      col.names=c("StratumDomain","Est","SE","SCF","Est","SE","SE inflate","SE","Conf level","LCL", "UCL"),
+      digits=c(0, 0,0, 2, 0,0, 2, 0,  2,0,0)) %>%
       add_header_above(c(" "=1, "Uncorrected for SCF"=2,
-                         " "=1, "Apply SCF"=2," "=1,"Corrected for SCF and domain"=3)) %>%
+                         " "=1, "Apply SCF"=2," "=1,"Corrected for SCF and domain"=4)) %>%
       kable_styling("bordered",position = "center", full_width=FALSE, latex_options = "HOLD_position")
 
 
@@ -2302,14 +2305,14 @@ temp$LCL.adj <- temp$est.adj.scf + qnorm((1-temp$conf.level)/2)*temp$SE.adj.SCF.
 temp$UCL.adj <- temp$est.adj.scf + qnorm((1+temp$conf.level)/2)*temp$SE.adj.SCF.ds
 
 temp <- temp[,c("Stratum.Domain","estimate","SE","SCF","est.adj.scf","SE.adj.scf","se.inflate","SE.adj.SCF.ds",
-                "LCL.adj","UCL.adj")]
+                "conf.level","LCL.adj","UCL.adj")]
 temp <- temp[order(temp$Stratum.Domain),]
 kable(temp, row.names=FALSE,
       caption="Estimated bull.100 cows using per-area (MoosePopR), corrected for sightability, and domain stratification",
-      col.names=c("StratumDomain","Est","SE","SCF","Est","SE","SE inflate","SE","LCL", "UCL"),
-      digits=c(0, 0,0, 2, 0,0, 2, 0,0,0)) %>%
+      col.names=c("StratumDomain","Est","SE","SCF","Est","SE","SE inflate","SE","Conf level","LCL", "UCL"),
+      digits=c(0, 0,0, 2, 0,0, 2, 0,  2,0,0)) %>%
       add_header_above(c(" "=1, "Uncorrected for SCF"=2,
-                         " "=1, "Apply SCF"=2," "=1,"Corrected for SCF and domain"=3)) %>%
+                         " "=1, "Apply SCF"=2," "=1,"Corrected for SCF and domain"=4)) %>%
       kable_styling("bordered",position = "center", full_width=FALSE, latex_options = "HOLD_position")
 
 
@@ -2695,7 +2698,7 @@ kable(temp, row.names=FALSE,
 #' Journal of Statistical Software, 51(9), 1-20. 
 #' https://doi.org/10.18637/jss.v051.i09
 #' 
-## ----echo=FALSE, warning=TRUE, message=FALSE----------------------------------------------------------------------------------------------------------------------------------------------------------
+## ----echo=FALSE, warning=FALSE, message=FALSE, include=FALSE------------------------------------------------------------------------------------------------------------------------------------------
 # generate purl'd code of this vignette
 knitr::purl("d-DomainStratification-method-of-Heard-2008.Rmd", 
             output="d-DomainStratification-method-of-Heard-2008-source.R",
