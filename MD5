@@ -1,6 +1,6 @@
-ddcae6b9d27254e7f5dfa515a35e828b *DESCRIPTION
+cbcf64cd52cc2d52511d86a89d7f182e *DESCRIPTION
 3e31afc3ade95d03e41403751a3ab4fc *NAMESPACE
-da2e37fcf450e90bc4bf4f9a24d81001 *NEWS.md
+f827fb6871e7532f16abdd6d4d2876fb *NEWS.md
 e77acc8ae9344ddd83db0f4aefa26a2e *R/MoosePopR.R
 2234d11c5168b8ee46cc10ffd586d972 *R/MoosePopR_DomStrat.R
 0ffb6a59dd959eafc09073930df8e27f *R/MoosePopR_DomStrat_bootrep.R
@@ -10,7 +10,7 @@ ca6b490783cd64831921b266a76e23d0 *R/SS.est.R
 3364d1163509d79e23561e018c819efb *R/Sight.Est.Ratio.R
 68a7582d711cce9d01e524a8d442ae32 *R/SightabilityPopR.R
 70cb70a9619d178a1a2d7ec870cc3379 *R/SightabilityPopR_DomStrat.R
-5d390daf0fa54f8ced2db47c5c786140 *R/Wong.est.R
+4af85a7f4de99864939daafaa82187c9 *R/Wong.est.R
 fa67ca509866d9b72dcd582a7849e02f *R/Wong.est.Ratio.R
 980521ae603fff018fb31e463258a974 *R/check.sightability.model.args.R
 1db82236eb639bd1725e6f407980d376 *R/compute.SCF.R
@@ -24,7 +24,7 @@ ef91d1403f164dd50257174cb20f4810 *R/print.sightest_ratio.R
 ff5dc9d3b8d8516a60e4ada6e35ac273 *R/vardiff.R
 6621d21acd28f020c50d05c9526f45c9 *R/varlog.lam.R
 94795c6d0eb65675408d36c17287d75a *README.md
-e9674f82a57f10eb46fdd335f33be44a *build/vignette.rds
+854f3d87f5d6023144ff6e3cbf0c55c1 *build/vignette.rds
 7a2dc7d110518197e8d1f478425e92b7 *data/exp.m.rda
 e08e0e3c634d6362866781698aa60b9e *data/g.fit.rda
 6c5d423389fe8497ec0bcd46a569e72c *data/gdat.rda
@@ -33,12 +33,12 @@ e08e0e3c634d6362866781698aa60b9e *data/g.fit.rda
 21f892015c69c9cea607957236a37885 *inst/CITATION
 d2f169b858fa03fe1775490e3e7e9f3e *inst/doc/a-SightabilityModel.R
 b998d2e92f1b453e212a087cae38646e *inst/doc/a-SightabilityModel.Rnw
-991b2f20c3967cf6cd697991f2f16f9b *inst/doc/a-SightabilityModel.pdf
+34517b628ff7127e3d90d1cc519d36f0 *inst/doc/a-SightabilityModel.pdf
 898f582e1c17ff9f7cbf85b6fc0ec1e8 *inst/doc/b-RatioEstimator.pdf
 b8bde76b3c552622612ac973499075c9 *inst/doc/b-RatioEstimator.pdf.asis
 254164a224b7a6ec62935cbf286c4bd0 *inst/doc/c-MoosePopR-SightabilityPopR-Demo.R
 08c2e1ee838b2923199642a30adf03e2 *inst/doc/c-MoosePopR-SightabilityPopR-Demo.Rmd
-78c0332e39792a690cecf4ffde4172e0 *inst/doc/c-MoosePopR-SightabilityPopR-Demo.html
+dfff4abeaba65541fd7854490caf346e *inst/doc/c-MoosePopR-SightabilityPopR-Demo.html
 96d7df2444a230b2d2c20d55d35850fa *inst/doc/d-DomainStratification-method-of-Heard-2008-source.R
 a01b46bf7873727d5bec402f89308073 *inst/doc/d-DomainStratification-method-of-Heard-2008.html
 196a79519761b0adf568cf70f278510f *inst/doc/d-DomainStratification-method-of-Heard-2008.html.asis
